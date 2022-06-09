@@ -16,13 +16,23 @@ namespace EmployeesProject.Controllers
             _employeeService = employeeService;
         }
 
+        /// <summary>
+        /// Добавление сотрудника
+        /// </summary>
+        /// <param name="employee">Сотрудник</param>
+        /// <returns>id добавленого сотрудника</returns>
         [HttpPost]
         public async Task<IActionResult> Create(Employee employee)
         {
             var result = await _employeeService.CreateEmployeeAsync(employee);
-            return Ok(result);
+            return Ok($"{{\"id\":{result}}}");
         }
 
+        /// <summary>
+        /// Выводить список сотрудников для указанного отдела
+        /// </summary>
+        /// <param name="name">Название отдела</param>
+        /// <returns>Список сотрудников</returns>
         [HttpGet]
         public async Task<IActionResult> GetByDepartment(string name)
         {
@@ -30,6 +40,11 @@ namespace EmployeesProject.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Выводить список сотрудников для указанной компании
+        /// </summary>
+        /// <param name="companyId">id компании</param>
+        /// <returns>Список сотрудников</returns>
         [HttpGet]
         public async Task<IActionResult> GetByCompany(int companyId)
         {
@@ -37,6 +52,11 @@ namespace EmployeesProject.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Изменение сотрудника
+        /// </summary>
+        /// <param name="employee">Обновленный сотрудник</param>
+        /// <returns></returns>
         [HttpPut]
         public async Task<IActionResult> Change(Employee employee)
         {
@@ -51,6 +71,11 @@ namespace EmployeesProject.Controllers
             }
         }
 
+        /// <summary>
+        /// Удаление сотрудника
+        /// </summary>
+        /// <param name="id">id удаляемого сотрудника</param>
+        /// <returns></returns>
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {

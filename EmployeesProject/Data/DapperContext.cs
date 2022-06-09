@@ -25,10 +25,9 @@ namespace EmployeesProject.Data
                 var records = connection.Query(query, parameters);
                 if (!records.Any())
                 {
-                    connection.Execute($"CREATE DATABASE {dbName}");
-                }
+                    var initDB = $"CREATE DATABASE {dbName}" +
 
-                var initDB = "CREATE TABLE[dbo].[Passports] ([Id] INT NOT NULL IDENTITY(1,1), " +
+                    "CREATE TABLE[dbo].[Passports] ([Id] INT NOT NULL IDENTITY(1,1), " +
                     "[Type] NVARCHAR(255) NOT NULL, [Number] NVARCHAR(255) NOT NULL, CONSTRAINT[PK_Passports] PRIMARY KEY([Id]));" +
 
                     "CREATE TABLE[dbo].[Departments] ([Id] INT NOT NULL IDENTITY(1,1), [Name] NVARCHAR(255) " +
@@ -44,7 +43,8 @@ namespace EmployeesProject.Data
                     "ALTER TABLE[dbo].[Employees] ADD CONSTRAINT[FK_Employees_DepartmentId_Departments_Id] " +
                     "FOREIGN KEY([DepartmentId]) REFERENCES[dbo].[Departments]([Id]);";
 
-                connection.Execute(initDB);
+                    connection.Execute(initDB);
+                }
             }
         }
     }

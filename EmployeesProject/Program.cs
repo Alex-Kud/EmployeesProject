@@ -34,6 +34,8 @@ builder.Services.AddSwaggerGen(opt =>
             Url = new Uri("https://vk.com/alex_kudashov")
         }
     });
+    var filePath = Path.Combine(System.AppContext.BaseDirectory, "EmployeesProject.xml");
+    opt.IncludeXmlComments(filePath);
 });
 
 var app = builder.Build();
