@@ -8,15 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.123" />
-    <PackageReference Include="FluentMigrator.Runner" Version="3.2.17" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Repositories\Implimentations\" />
-    <Folder Include="Repositories\Interfaces\" />
-    <Folder Include="Services\Implimentations\" />
-    <Folder Include="Services\Interfaces\" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="4.1.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
   </ItemGroup>
 
 </Project>
