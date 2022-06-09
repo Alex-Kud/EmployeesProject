@@ -1,9 +1,11 @@
 using EmployeesProject.Data;
 using EmployeesProject.Migrations;
+using FluentMigrator.Runner;
 using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
-
+ConfigurationManager configuration = builder.Configuration;
 // Add services to the container.
 
 builder.Services.AddSingleton<DapperContext>();
@@ -31,6 +33,12 @@ builder.Services.AddSwaggerGen(opt =>
     });
 });
 
+builder.Services.AddLogging(c => c.AddFluentMigratorConsole())
+        .AddFluentMigratorCore()
+        .ConfigureRunner(c => c.AddSqlServer()
+            .WithGlobalConnectionString(configuration["SqlConnection"])
+            .ScanIn(Assembly.GetExecutingAssembly()).For.Migrations());
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -45,5 +53,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MigrateDatabase();
 
 app.Run();

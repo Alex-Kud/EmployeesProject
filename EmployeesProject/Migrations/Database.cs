@@ -15,7 +15,7 @@ namespace EmployeesProject.Migrations
             var query = "SELECT * FROM sys.databases WHERE name = @name";
             var parameters = new DynamicParameters();
             parameters.Add("name", dbName);
-            using (var connection = _context.CreateMasterConnection())
+            using (var connection = _context.CreateConnection())
             {
                 var records = connection.Query(query, parameters);
                 if (!records.Any())
