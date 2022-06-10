@@ -78,7 +78,9 @@ namespace EmployeesProject.Repositories.Implimentations
 
                 var deleteEmployee = "DELETE FROM Employees WHERE Id = @Id;";
                 var getPassportId = "SELECT PassportId FROM Employees WHERE Id = @Id;";
-                var passportId = connection.QueryAsync<int>(getPassportId, new { Id = id });
+                var passportId = await connection.QueryAsync<int>(getPassportId, new { Id = id });
+
+                var result = await connection.ExecuteAsync(deleteEmployee, new { Id = id });
 
                 if (passportId != null)
                 {
@@ -86,7 +88,7 @@ namespace EmployeesProject.Repositories.Implimentations
                     await connection.ExecuteAsync(deletePassport, new { Id = passportId });
                 }
 
-                return await connection.ExecuteAsync(deleteEmployee, new { Id = id});
+                return result;
             }
             catch (Exception ex)
             {
